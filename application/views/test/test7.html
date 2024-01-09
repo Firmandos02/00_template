@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Colored Line Charts</title>
+    <!-- Load Highcharts library -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+
+<div id="chart-container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="chart-container2" style="min-width: 310px; height: 400px; margin: 20px auto"></div>
+
+<script>
+// Data Dummy 1
+var dataSeries1_1 = {
+    name: 'Data Series 1 - Chart 1',
+    data: [3, 5, 8, 10, 7, 15, 12, 10, 8, 6, 4, 2]
+};
+
+var dataSeries2_1 = {
+    name: 'Data Series 2 - Chart 1',
+    data: [1, 4, 6, 8, 10, 12, 14, 16, 18, 20, 15, 10]
+};
+
+// Data Dummy 2
+var dataSeries1_2 = {
+    name: 'Data Series 1 - Chart 2',
+    data: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 15, 10]
+};
+
+var dataSeries2_2 = {
+    name: 'Data Series 2 - Chart 2',
+    data: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 14, 12]
+};
+
+// Menentukan batas atas (top) dan batas bawah (bottom) untuk Chart 1
+var topLimit1 = 10;
+var bottomLimit1 = 9;
+
+// Menentukan batas atas (top) dan batas bawah (bottom) untuk Chart 2
+var topLimit2 = 15;
+var bottomLimit2 = 5;
+
+// Modifikasi data series untuk memberikan warna langsung
+var modifyDataSeries = function (data, topLimit, bottomLimit) {
+    return data.map(function (point) {
+        var color = point > topLimit ? 'red' : (point < bottomLimit ? 'blue' : 'green');
+        return {
+            y: point,
+            color: color
+        };
+    });
+};
+
+var modifiedDataSeries1_1 = {
+    name: 'Data Series 1 - Chart 1',
+    data: modifyDataSeries(dataSeries1_1.data, topLimit1, bottomLimit1)
+};
+
+var modifiedDataSeries2_1 = {
+    name: 'Data Series 2 - Chart 1',
+    data: modifyDataSeries(dataSeries2_1.data, topLimit1, bottomLimit1)
+};
+
+var modifiedDataSeries1_2 = {
+    name: 'Data Series 1 - Chart 2',
+    data: modifyDataSeries(dataSeries1_2.data, topLimit2, bottomLimit2)
+};
+
+var modifiedDataSeries2_2 = {
+    name: 'Data Series 2 - Chart 2',
+    data: modifyDataSeries(dataSeries2_2.data, topLimit2, bottomLimit2)
+};
+
+// Membuat line chart dengan dua data series yang sudah dimodifikasi warnanya untuk Chart 1
+Highcharts.chart('chart-container1', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Colored Line Chart - Chart 1'
+    },
+    series: [modifiedDataSeries1_1, modifiedDataSeries2_1],
+    yAxis: {
+        min: bottomLimit1 - 10,
+        max: topLimit1 + 10,
+        plotLines: [{
+            color: 'red',
+            width: 2,
+            value: topLimit1,
+            zIndex: 5,
+            label: {
+                text: 'Top Limit'
+            },
+            dashStyle: 'Dash',
+            opacity: 0.4
+        }, {
+            color: 'green',
+            width: 2,
+            value: bottomLimit1,
+            zIndex: 5,
+            label: {
+                text: 'Bottom Limit'
+            },
+            dashStyle: 'Dash',
+            opacity: 0.4
+        }]
+    }
+});
+
+// Membuat line chart dengan dua data series yang sudah dimodifikasi warnanya untuk Chart 2
+Highcharts.chart('chart-container2', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Colored Line Chart - Chart 2'
+    },
+    series: [modifiedDataSeries1_2, modifiedDataSeries2_2],
+    yAxis: {
+        min: bottomLimit2 - 10,
+        max: topLimit2 + 10,
+        plotLines: [{
+            color: 'red',
+            width: 2,
+            value: topLimit2,
+            zIndex: 5,
+            label: {
+                text: 'Top Limit'
+            },
+            dashStyle: 'Dash',
+            opacity: 0.4
+        }, {
+            color: 'green',
+            width: 2,
+            value: bottomLimit2,
+            zIndex: 5,
+            label: {
+                text: 'Bottom Limit'
+            },
+            dashStyle: 'Dash',
+            opacity: 0.4
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

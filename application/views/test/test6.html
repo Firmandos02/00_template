@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Mencoba untuk mendapatkan lokasi Anda.</p>
+
+<button onclick="getLocation()">Klik saya</button>
+
+<p id="demo"></p>
+
+<script>
+var ip;
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var json = JSON.parse(this.responseText);
+        ip = json.ip;
+        document.getElementById("demo").innerHTML = ip;
+    }
+};
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation tidak didukung oleh browser ini.";
+    }
+}
+
+function showPosition(position) {
+    xmlhttp.open("GET", "https://api.ipify.org?format=json", true);
+    xmlhttp.send();
+}
+</script>
+
+</body>
+</html>

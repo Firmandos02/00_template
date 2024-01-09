@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colored Line Chart</title>
+    <!-- Load Highcharts library -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+
+<div id="chart-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script>
+// Data Dummy
+var dataSeries1 = {
+    name: 'Data Series 1',
+    data: [3, 5, 8, 10, 7, 15, 12, 10, 8, 6, 4, 2]
+};
+
+var dataSeries2 = {
+    name: 'Data Series 2',
+    data: [1, 4, 6, 8, 10, 12, 14, 16, 18, 20, 15, 10]
+};
+
+// Menentukan batas atas (top) dan batas bawah (bottom)
+var topLimit = 12;
+var bottomLimit = 4;
+
+// Membuat line chart dengan dua data series dan memberikan warna berbeda untuk data di atas, di bawah, dan di antara batas atas dan batas bawah
+Highcharts.chart('chart-container', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Colored Line Chart'
+    },
+    series: [dataSeries1, dataSeries2],
+    yAxis: {
+          min: bottomLimit - 10, // Adjust the minimum value on the y-axis
+            max: topLimit + 10, // Adjust the maximum value on the y-axis
+        plotLines: [{
+            color: 'red', // Warna garis batas atas
+            width: 2,
+            value: topLimit,
+            zIndex: 5,
+            label: {
+                text: 'Top Limit'
+            },
+            dashStyle: 'Dash',
+            opacity: 0.4
+        }, {
+            color: 'green', // Warna garis batas bawah
+            width: 2,
+            value: bottomLimit,
+            zIndex: 5,
+            label: {
+                text: 'Bottom Limit'
+            },
+            dashStyle: 'Dash',
+            opacity: 0.4
+        }]
+    },
+    plotOptions: {
+        series: {
+            events: {
+                afterAnimate: function () {
+                    var series = this;
+                    series.data.forEach(function (point) {
+                        if (point.y > topLimit) {
+                            point.graphic.attr({
+                                fill: 'red'
+                            });
+                        } else if (point.y < bottomLimit) {
+                            point.graphic.attr({
+                                fill: 'red'
+                            });
+                        } else {
+                            point.graphic.attr({
+                                fill: 'green'
+                            });
+                        }
+                    });
+                }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

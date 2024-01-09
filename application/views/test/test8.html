@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bar Chart OK vs NG</title>
+  <!-- Tambahkan link ke library Highcharts -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+
+<!-- Tambahkan elemen dengan ID sesuai keinginan Anda -->
+<div id="horizontalBarChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<!-- Script untuk membuat grafik menggunakan Highcharts -->
+<script>
+// Data dummy untuk Bar Chart
+var data = [{
+  name: 'OK',
+  y: 80, // Misalnya, 80% OK
+  color: 'green'
+}, {
+  name: 'NG',
+  y: 20, // Misalnya, 20% NG
+  color: 'red'
+}];
+
+// Konfigurasi Highcharts untuk Bar Chart yang menghadap ke samping
+var options = {
+  chart: {
+    type: 'bar',
+    inverted: true // Menghadap ke samping
+  },
+  title: {
+    text: 'Bar Chart OK vs NG'
+  },
+  xAxis: {
+    categories: ['Status']
+  },
+  yAxis: {
+    title: {
+      text: 'Persentase'
+    }
+  },
+  series: [{
+    data: data
+  }]
+};
+
+// Membuat Bar Chart menggunakan konfigurasi di atas
+Highcharts.chart('horizontalBarChart', options);
+</script>
+
+</body>
+</html>
